@@ -4,8 +4,8 @@ import chalk from 'chalk';
 
 export const checkIsExist = async (filePath) => {
   try {
-    const checkFile = fs.existsSync(filePath);
-    return checkFile;
+    await fs.promises.access(filePath, fs.constants.F_OK);
+    return true;
   } catch (error) {
     return false;
   }

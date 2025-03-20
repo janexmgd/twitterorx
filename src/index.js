@@ -4,6 +4,7 @@ import 'dotenv/config';
 import chalk from 'chalk';
 import boxen from 'boxen';
 import getMedia from './core/getMedia.js';
+import downloadMedia from './core/downloadMedia.js';
 const choices = [
   {
     name: 'obtain twitter user info',
@@ -12,6 +13,10 @@ const choices = [
   {
     name: 'obtain twitter user media',
     value: 2,
+  },
+  {
+    name: 'download media',
+    value: 3,
   },
 ];
 const obtainUsername = async () => {
@@ -42,21 +47,27 @@ const obtainUsername = async () => {
     }
     console.log(boxen(chalk.green('Welcome twitterorx'), { padding: 1 }));
 
-    const { input } = await inquirer.prompt({
-      type: 'list',
-      message: 'select service',
-      name: 'input',
-      choices,
-    });
-
+    // const { input } = await inquirer.prompt({
+    //   type: 'list',
+    //   message: 'select service',
+    //   name: 'input',
+    //   choices,
+    // });
+    const screen_name = 'L_MarshaJKT48';
+    await getMedia(screen_name);
+    // await downloadMedia(screen_name);
+    return;
     if (input == 1) {
       const screen_name = await obtainUsername();
       await getUserInfo(screen_name);
     }
     if (input == 2) {
       const screen_name = await obtainUsername();
-
       await getMedia(screen_name);
+    }
+    if (input == 3) {
+      const screen_name = await obtainUsername();
+      await downloadMedia(screen_name);
     }
   } catch (error) {
     console.log(error);

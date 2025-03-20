@@ -54,17 +54,21 @@ function parseAndPush(tweets, itemContent) {
   const tweetData = itemContent.tweet_results?.result;
   if (tweetData) {
     tweets.push({
-      id: tweetData.rest_id,
+      rest_id: tweetData.rest_id,
+      tweet_url: `https://twitter.com/${tweetData.core?.user_results?.result?.legacy?.screen_name}/status/${tweetData.rest_id}`,
+      id: tweetData.id,
       text: tweetData.legacy?.full_text,
       user: {
-        id: tweetData.core?.user_results?.result?.rest_id,
+        rest_id: tweetData.core?.user_results?.result?.rest_id,
         name: tweetData.core?.user_results?.result?.legacy?.name,
         screen_name: tweetData.core?.user_results?.result?.legacy?.screen_name,
       },
-      media: tweetData.legacy?.extended_entities?.media ?? [],
+      // media: tweetData.legacy?.extended_entities?.media ?? [],
       created_at: tweetData.legacy?.created_at,
       favorite_count: tweetData.legacy?.favorite_count,
       retweet_count: tweetData.legacy?.retweet_count,
+      comment_count: tweetData.legacy?.reply_count,
+      reply_count: tweetData.legacy?.reply_count,
     });
   }
 }

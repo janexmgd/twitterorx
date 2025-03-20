@@ -1,8 +1,7 @@
 import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs';
-import { checkIsExist } from '../utils/fileUtils.js'; // Pastikan path ini benar
-import twitterApi from '../processor/twitter.js';
+import { checkIsExist } from '../utils/fileUtils.js';
 import { downloadProcess } from '../utils/downloadProcess.js';
 
 const downloadMedia = async (screen_name) => {

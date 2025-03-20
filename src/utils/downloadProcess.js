@@ -1,6 +1,5 @@
 import urlModule from 'url';
 import fs from 'fs';
-import fsPromise from 'fs/promises';
 import path from 'path';
 import chalk from 'chalk';
 import axios from 'axios';
@@ -15,17 +14,6 @@ const shortenFileName = (filename) => {
     return filename.substring(0, 5) + '***';
   }
   return filename;
-};
-export const readJsonFile = async (username, filename) => {
-  try {
-    const currentDir = process.cwd();
-    const filePath = path.join(currentDir, 'download', username);
-    const data = await fsPromise.readFile(`${filePath}/${filename}`, 'utf8');
-    const jsonData = JSON.parse(data);
-    return jsonData;
-  } catch (err) {
-    console.error(err);
-  }
 };
 
 const checkIsDownloaded = (filePath) => {
@@ -43,18 +31,14 @@ export const downloadProcess = async (
   lengthOfMedia,
   current,
   retries = 3,
-  folderPath,
+  filePath,
   currentProggres,
   total
 ) => {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      const parsedUrl = urlModule.parse(url);
-      const pathnameSegments = parsedUrl.pathname.split('/');
-      const filenameQuery = pathnameSegments[pathnameSegments.length - 1];
-      const originalFilename = filenameQuery.split('?')[0];
-      const shortenedFilename = shortenFileName(originalFilename);
-      const filePath = path.join(folderPath, originalFilename);
+      const filename = path.basename(filePath);
+      const shortenedFilename = shortenFileName(filename);
       const isAlready = checkIsDownloaded(filePath);
 
       if (isAlready) {
@@ -84,7 +68,7 @@ export const downloadProcess = async (
             2
           );
           process.stdout.write(
-            `[${currentProggres} / ${total}]Downloading ${shortenedFilename}: ${progress}% | Speed: ${downloadSpeed} KB/s\r`
+            `[ ${currentProggres} / ${total} ] Downloading ${shortenedFilename}: ${progress}% | Speed: ${downloadSpeed} KB/s\r`
           );
         });
 
@@ -115,7 +99,7 @@ export const downloadProcess = async (
         });
 
         console.log(
-          `[${currentProggres} / ${total}]${chalk.italic(
+          `[ ${currentProggres} / ${total} ] ${chalk.italic(
             shortenedFilename
           )} ${chalk.green(`success`)} ${current}/${lengthOfMedia}`
         );

@@ -63,7 +63,7 @@ function parseAndPush(tweets, itemContent) {
         name: tweetData.core?.user_results?.result?.legacy?.name,
         screen_name: tweetData.core?.user_results?.result?.legacy?.screen_name,
       },
-      // media: tweetData.legacy?.extended_entities?.media ?? [],
+      media: tweetData.legacy?.entities?.media ?? [],
       created_at: tweetData.legacy?.created_at,
       favorite_count: tweetData.legacy?.favorite_count,
       retweet_count: tweetData.legacy?.retweet_count,

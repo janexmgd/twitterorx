@@ -47,16 +47,13 @@ const obtainUsername = async () => {
     }
     console.log(boxen(chalk.green('Welcome twitterorx'), { padding: 1 }));
 
-    // const { input } = await inquirer.prompt({
-    //   type: 'list',
-    //   message: 'select service',
-    //   name: 'input',
-    //   choices,
-    // });
-    const screen_name = 'L_MarshaJKT48';
-    await getMedia(screen_name);
-    // await downloadMedia(screen_name);
-    return;
+    const { input } = await inquirer.prompt({
+      type: 'list',
+      message: 'select service',
+      name: 'input',
+      choices,
+    });
+
     if (input == 1) {
       const screen_name = await obtainUsername();
       await getUserInfo(screen_name);

@@ -109,7 +109,7 @@ const twitterApi = {
           headers,
         }
       );
-      return data;
+      return data.data;
     } catch (error) {
       console.log('Error when fetching tweet detail');
       console.log(error);

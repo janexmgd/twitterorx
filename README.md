@@ -38,3 +38,15 @@ npm install
 ```
 npm start
 ```
+
+### docs
+
+example sample output
+
+- user info output
+
+  [![User info output](./docs/example_user_info_output.png)]({video-url} 'user info output')
+
+- user media output
+
+  [![User media output](./docs/example_user_media_ouput.png)]({video-url} 'user media output')

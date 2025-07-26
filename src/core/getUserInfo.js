@@ -6,6 +6,8 @@ import { savingFileToJson } from '../utils/fileUtils.js';
 const getUserInfo = async (screen_name) => {
   try {
     const data = await twitterApi.userInfo(screen_name);
+    console.log(data);
+
     const { save } = await inquirer.prompt({
       type: 'confirm',
       name: 'save',
